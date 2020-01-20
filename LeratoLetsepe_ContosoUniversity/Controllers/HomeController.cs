@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LeratoLetsepe_ContosoUniversity.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace LeratoLetsepe_ContosoUniversity.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration configuration;
+        public HomeController(IConfiguration config)
+        {
+            this.configuration = config;
+        }
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -20,6 +26,7 @@ namespace LeratoLetsepe_ContosoUniversity.Controllers
 
         public IActionResult Index()
         {
+            string connectionstring = configuration.GetConnectionString("MyConnectionString");
             return View();
         }
 
